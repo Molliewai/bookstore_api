@@ -93,7 +93,7 @@ async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: s
     return _schemas.User.from_orm(user), _CartSchema.ReadCart.from_orm(cart)
 
 
-'''async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session):
+async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session):
     user_obj = db.query(_models.User).filter(
         _models.User.id == user_id).first()
 
@@ -116,9 +116,9 @@ async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: s
     db.commit()
     db.refresh(user_obj)
 
-    return {"username": user_obj.username, "email": user_obj.email, "hashed_password": user_obj.hashed_password}'''
+    return {"username": user_obj.username, "email": user_obj.email, "hashed_password": user_obj.hashed_password}
 
-async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session):
+'''async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session):
     async with db:
         user_obj = db.query(_models.User).filter(
             _models.User.id == user_id).first()
@@ -138,5 +138,5 @@ async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session)
         db.commit()
         db.refresh(user_obj)
 
-        return {"username": user_obj.username, "email": user_obj.email, "hashed_password": user_obj.hashed_password}
+        return {"username": user_obj.username, "email": user_obj.email, "hashed_password": user_obj.hashed_password}'''
 
