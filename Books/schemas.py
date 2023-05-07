@@ -12,9 +12,15 @@ class _BookBase(_pydantic.BaseModel):
     total_pages: int
     price: int
     author: str
-    image_path: str
+
 
 class BookCreate(_BookBase):
+    image_path: str
+    pass
+
+
+class BookUpdate(_BookBase):
+    category_id: int
     pass
 
 
