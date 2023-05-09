@@ -12,6 +12,10 @@ class CategoryCreate(_CategoryBase):
     pass
 
 
+class CategoryUpdate(_CategoryBase):
+    pass
+
+
 class Category(_CategoryBase):
     id: int
 

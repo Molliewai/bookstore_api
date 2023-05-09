@@ -5,19 +5,24 @@ from . import models as _BookModel
 import sqlalchemy.orm as _orm
 import os
 
+
 BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 UPLOAD_DIR = os.path.join(BASE_DIR, 'uploads')
 
+
 # GET SINGLE BOOK BY ID
-
-
 async def get_book(db: _orm.Session, book_id: int):
     return db.query(_BookModel.Book).filter(_BookModel.Book.id == book_id).first()
 
 
 # GET ALL BOOKS
-async def get_books(db: _orm.Session):
-    books = db.query(_BookModel.Book)
+async def get_books(db: _orm.Session, search: str = None):
+    query = db.query(_BookModel.Book)
+
+    if search:
+        query = query.filter(_BookModel.Book.title.ilike(f'%{search}%'))
+
+    books = query.all()
 
     return list(map(_BookSchema.Book.from_orm, books))
 
@@ -43,6 +48,7 @@ async def delete_book(db: _orm.Session, book_id: int):
         os.remove(os.path.join(UPLOAD_DIR, book_obj.image_path))
     except:
         pass
+
     return {"message": "Book deleted successfully"}
 
 

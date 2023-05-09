@@ -19,11 +19,14 @@ async def get_categories(db: _orm.Session = _fastapi.Depends(get_db)):
     return await _services.get_categories(db=db)
 
 
-
 @router.get("/{cat_id}", response_model=_schemas.Category)
 async def get_category(cat_id: int, db: _orm.Session = _fastapi.Depends(get_db)):
     return await _services.get_category(cat_id=cat_id, db=db)
 
+
+@router.put("/{cat_id}", response_model=_schemas.Category)
+async def update_category(cat_id: int, category: _schemas.CategoryUpdate, db: _orm.Session = _fastapi.Depends(get_db)):
+    return await _services.update_category(cat_id=cat_id, category=category, db=db)
 
 
 @router.delete("/{cat_id}")

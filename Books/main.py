@@ -37,8 +37,8 @@ async def create_book(
 
 
 @router.get("/", response_model=list[_schemas.Book])
-async def get_books(db: _orm.Session = _fastapi.Depends(get_db)):
-    return await _services.get_books(db=db)
+async def get_books(search: str = None, db: _orm.Session = _fastapi.Depends(get_db)):
+    return await _services.get_books(db=db, search=search)
 
 
 @router.get("/{book_id}", response_model=_schemas.Book)
