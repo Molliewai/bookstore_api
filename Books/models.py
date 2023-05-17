@@ -1,7 +1,7 @@
 import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
 import datetime as _dt
-
+from associations import cart_books
 from Database.database import Base
 
 
@@ -9,7 +9,7 @@ class Book(Base):
     __tablename__ = "books"
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     title = _sql.Column(_sql.String, index=True)
-    desc = _sql.Column(_sql.String, unique=True, index=True)
+    desc = _sql.Column(_sql.String, index=True)
     total_pages = _sql.Column(_sql.Integer, index=True)
     price = _sql.Column(_sql.Integer, index=True)
     author = _sql.Column(_sql.String, index=True)
@@ -24,4 +24,5 @@ class Book(Base):
 
     owner = _orm.relationship("User", back_populates="books")
     category = _orm.relationship("Category", back_populates="books")
-    cart = _orm.relationship("Cart", back_populates="books")
+    carts = _orm.relationship(
+        "Cart", secondary="cart_books", back_populates="books")
